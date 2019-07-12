@@ -9,7 +9,7 @@ const warns = JSON.parse(fs.readFileSync('./warns.json'))
 
 client.on("ready", () => {
     console.log(`Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`); 
-    client.user.setActivity(`Servir Lycaon`);
+    client.user.setActivity(`Servir le grand Lycaon`);
   });
 
 /*Quand quelqu'un rejoint*/
@@ -67,7 +67,7 @@ client.on('message', function (message) {
         let count = parseInt(args[1])
         if (!count) return message.channel.send("Veuillez indiquer un nombre de messages à supprimer")
         if (isNaN(count)) return message.channel.send("Veuillez indiquer un nombre valide")
-        if (count < 1 || count > 100) return message.channel.send("Veuillez indiquer un nombre entre 1 et 100")
+        if (count < 1 || count > 99) return message.channel.send("Veuillez indiquer un nombre entre 1 et 99")
         message.channel.bulkDelete(count + 1)
     }
  /*Mute*/
@@ -147,7 +147,7 @@ client.on('message', function (message) {
         fs.writeFileSync('./warns.json', JSON.stringify(warns))
         message.channel.send("Le dernier warn de " + member + " a été retiré :white_check_mark:")
     }
-/*planning*/
+/*Planning*/
     if (args[0].toLowerCase() === prefix + "sorties") {
         let embed = new Discord.RichEmbed()
             .setColor("ORANGE")
@@ -156,6 +156,7 @@ client.on('message', function (message) {
             .addField("__Peerless Battle Spirit__ :", "Le vendredi, chaque semaine.", 'true')
         message.channel.send(embed)
 }
+/*Avatar*/
     if (args[0].toLowerCase() === prefix + "avatar") {
         let member = message.mentions.members.first()
       if (member) {
@@ -172,19 +173,6 @@ client.on('message', function (message) {
             .setImage(message.author.avatarURL)
           message.channel.send(embed)}
     }
-    if (args[0].toLowerCase() === prefix + "meme") {
-        let meme = args.slice(2).join(' ')
-      if (meme === 'peekaboo'||'coucou') {
-        const attachment = new Attachment('https://i.imgur.com/u2lzZ9a.mp4');
-        message.channel.send(attachment);
-        }
-      else {
-          let embed = new Discord.RichEmbed()
-            .setColor("#4169E1")
-            .setTitle('Avatar de ' + message.author.username + ' :')
-            .setImage(message.author.avatarURL)
-          message.channel.send(embed)}
-    }
 })
 /*Ping*/
 client.on("message", async message => {
@@ -192,8 +180,40 @@ client.on("message", async message => {
     let args = message.content.trim().split(/ +/g)
     
     if (args[0].toLowerCase() === prefix + "ping") {
-        }
 //    const m = await message.channel.send("Ping ?");
 //    m.edit(`Pong ! La latence est de ${m.createdTimestamp - message.createdTimestamp}ms. La latence de l'API est de ${Math.round(client.ping)}ms`);
       message.channel.send("Pong !")
+  }
+/*Meme*/
+    if (args[0].toLowerCase() === prefix + "meme"||args[0].toLowerCase() === prefix + "m") {
+        let meme = args.slice(2).join(' ')
+      if (meme === 'peekaboo'||'coucou'||'salut'||'cc'||'slt'||'bonjour'||'bjr'||'hello'||'hi'||'holla') {
+          message.delete().catch(O_o=>{});
+    const imagecoucou = ['https://media1.tenor.com/images/1c7bb4f8255a18dcfad59e6411e43ef7/tenor.gif', 'https://media1.tenor.com/images/39fca5939d78fc9e098251fb4c124cfe/tenor.gif',
+                         'https://media1.tenor.com/images/e873ae8a05571224d7a36c2ff3cd2f4c/tenor.gif', 'https://media1.tenor.com/images/305b06a8b5146b29316ef8d0b6ff1c70/tenor.gif',
+                         'https://media1.tenor.com/images/748b74e67742c6a75f63b18145939a19/tenor.gif', 'https://media1.tenor.com/images/1cdf499079253dfce394e34f70e46d24/tenor.gif',
+                         'https://media1.tenor.com/images/08d247bf9f143cc33a18fae1cce2f10d/tenor.gif', 'https://media1.tenor.com/images/638305b92c30a36344a96d287f8e7860/tenor.gif',
+                         'https://media1.tenor.com/images/ab69d5243d1411244bf6a4f2395ece05/tenor.gif', 'https://media1.tenor.com/images/2b7fec7ce40c95b531889dd7f14922a5/tenor.gif',
+                         'https://media1.tenor.com/images/96d57d2652e0d96dd74d0b8e001fd9dc/tenor.gif', 'https://media1.tenor.com/images/7e62e4a76c0def84660a2e4dda66f3ea/tenor.gif',
+                         'https://media1.tenor.com/images/c07a0e54601516dbf8b399832636507a/tenor.gif', 'https://media1.tenor.com/images/5b6a39aa00312575583031d2de4edbd4/tenor.gif',
+                         'https://media.giphy.com/media/Ph0erUx5Vn1iP8LFWU/giphy.gif', 'https://media.giphy.com/media/4a9Tlz3Mj2LS5LMw33/giphy.gif',
+                         'https://media.giphy.com/media/dva1sIZr9I7qsxLK1o/giphy.gif', 'https://media.giphy.com/media/3ov9jGkCigNtfxBMac/giphy.gif',]
+          let imagecc = imagecoucou[Math.floor(Math.random() * imagecoucou.length)]
+          const msgmeme = await message.channel.send("Recherche en cours...");
+          let newembed = new Discord.RichEmbed()
+            .setColor("#FFD700")
+            .setAuthor('Coucou !', message.guild.iconURL)
+            .setImage(imagecc)
+            .setTimestamp()
+            .setFooter('Okami Bot --- Meme demandé par ' + message.author.username + '', client.user.displayAvatarURL)
+          message.channel.send(newembed)
+          msgmeme.delete();
+      }
+      else {
+          let embed = new Discord.RichEmbed()
+            .setColor("#4169E1")
+            .setTitle('Avatar de ' + message.author.username + ' :')
+            .setImage(message.author.avatarURL)
+          message.channel.send(embed)}
+    }
 })
