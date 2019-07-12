@@ -1,0 +1,16 @@
+{
+  "name": "okamibot",
+  "version": "0.0.1",
+  "description": "Bot pour l'Okami no Scantrad",
+  "main": "index.js",
+  "dependencies": {
+    "discord.js": "^11.5.1",
+    "fs": "^0.0.1-security"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Lycaon",
+  "license": "GPL-3.0-or-later"
+}
