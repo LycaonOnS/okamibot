@@ -264,7 +264,7 @@ client.on("ready", () => {
   setInterval(function annivmessage() {
     var auj = new Date(); // On récupère la date actuelle
     let hour = "" + auj.getUTCHours() + ":" + auj.getUTCMinutes();
-    if (hour === "22:10") {
+    if (hour === "21:01") {
       let month = auj.getMonth() + 1;
       let rmonth = 0;
       if (month <= 9) {
@@ -284,5 +284,5 @@ client.on("ready", () => {
           .send("Pas d'anniversaire à cette date");
       }
     }
-  }, 60000);
+  }, 1000);
 });
