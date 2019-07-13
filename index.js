@@ -6,6 +6,7 @@ let prefix = "*"
 client.login(process.env.auth) 
 
 const warns = JSON.parse(fs.readFileSync('./warns.json'))
+const birthdays = JSON.parse(fs.readFileSync("./birthdays.json"));
 
 client.on("ready", () => {
     console.log(`Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`); 
