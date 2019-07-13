@@ -273,14 +273,14 @@ client.on("ready", () => {
       let aujtest = "" + auj.getDate() + "/" + rmonth;
       if (birthdays[aujtest]) {
         client.channels
-          .get("process.env.annivchannel")
+          .get(process.env.annivchannel)
           .send(
             "Bon anniversaire à " + birthdays[aujtest].map(e => e.member) + " !"
           );
       }
       if (!birthdays[aujtest]) {
         client.channels
-          .get("process.env.annivchannel")
+          .get(process.env.annivchannel)
           .send("Pas d'anniversaire à cette date");
       }
     }
