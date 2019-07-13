@@ -216,4 +216,72 @@ client.on("message", async message => {
             .setImage(message.author.avatarURL)
           message.channel.send(embed)}
     }
-})
+  if (args[0].toLowerCase() === prefix + "anniv") {
+    let date_naissance = args.slice(1).join(" ");
+    let annivmember = "" + message.author.username + "";
+    const m = await message.channel.send("En cours...");
+    var reg = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/; // Une regexp de vérification de la syntaxe jj/mm/aaaa
+    if (!reg.test(date_naissance)) {
+      // Si la syntaxe est incorrect
+      m.edit("Erreur. Respectez le format : jj/mm/aaaa");
+    }
+    if (birthdays[annivmember]) {
+      return m.edit(
+        "Il y a déjà une date enregistrée pour ce membre, contactez Lycaon pour supprimer cette date"
+      );
+    }
+    if (reg.test(date_naissance)) {
+      let dateanniv = date_naissance.slice(0, 5);
+      var auj = new Date(); // On récupère la date actuelle
+      var age = auj.getFullYear() - RegExp.$3; // On sauvegarde l'age
+      var anniversaire = new Date(auj.getFullYear(), RegExp.$2 - 1, RegExp.$1); // On crée un objet date représentant l'anniversaire de l'année courante
+      if (!birthdays[dateanniv]) {
+        birthdays[dateanniv] = [];
+      }
+      birthdays[dateanniv].unshift({
+        member: annivmember,
+        anniv: anniversaire
+      });
+      if (!birthdays[annivmember]) {
+        birthdays[annivmember] = [];
+      }
+      birthdays[annivmember].unshift({
+        member: annivmember,
+        anniv: anniversaire
+      });
+      fs.writeFileSync("./birthdays.json", JSON.stringify(birthdays));
+      m.edit("Date enregistrée !");
+      if (Math.floor((auj - anniversaire) / (1000 * 3600 * 24)) == 0) {
+        // Si les deux dates sont égalesmillisecondes près)
+        message.channel.send("Joyeux anniversaire " + annivmember + " !"); // On souhaite l'anniversaire
+      }
+    }
+  }
+});
+
+client.on("ready", () => {
+  setInterval(function annivmessage() {
+    var auj = new Date(); // On récupère la date actuelle
+    let hour = "" + auj.getUTCHours() + ":" + auj.getUTCMinutes();
+    if (hour === "22:10") {
+      let month = auj.getMonth() + 1;
+      let rmonth = 0;
+      if (month <= 9) {
+        rmonth = "0" + month + "";
+      }
+      let aujtest = "" + auj.getDate() + "/" + rmonth;
+      if (birthdays[aujtest]) {
+        client.channels
+          .get("process.env.annivchannel")
+          .send(
+            "Bon anniversaire à " + birthdays[aujtest].map(e => e.member) + " !"
+          );
+      }
+      if (!birthdays[aujtest]) {
+        client.channels
+          .get("process.env.annivchannel")
+          .send("Pas d'anniversaire à cette date");
+      }
+    }
+  }, 60000);
+});
