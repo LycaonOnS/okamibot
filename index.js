@@ -10,7 +10,7 @@ const birthdays = JSON.parse(fs.readFileSync("./birthdays.json"));
 
 client.on("ready", () => {
     console.log(`Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`); 
-    client.user.setActivity(`Servir le grand Lycaon`);
+    client.user.setActivity(`Servir le grand Lycaon // Préfixe ;`);
   });
 
 /*Quand quelqu'un rejoint*/
@@ -256,6 +256,23 @@ client.on("message", async message => {
         // Si les deux dates sont égalesmillisecondes près)
         message.channel.send("Joyeux anniversaire " + annivmember + " !"); // On souhaite l'anniversaire
       }
+    }
+  }
+  if (args[0].toLowerCase() === prefix + "send") {
+    if (!message.member.hasPermission("MANAGE_MESSAGES"))
+      return message.channel.send(
+        "Vous n'avez pas la permission d'utiliser cette commande."
+      );
+    let channelid = message.mentions.channels.first();
+    let textemessage;
+
+    message.delete();
+    if (channelid) {
+      textemessage = args.slice(2).join(" ");
+      channelid.send(textemessage);
+    } else {
+      textemessage = args.join(" ");
+      channelid.send(textemessage);
     }
   }
 });
