@@ -10,7 +10,7 @@ const birthdays = JSON.parse(fs.readFileSync("./birthdays.json"));
 
 client.on("ready", () => {
     console.log(`Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`); 
-    client.user.setActivity(`Servir le grand Lycaon // Préfixe *`);
+    client.user.setActivity(`Servir le grand Lycaon`);
   });
 
 /*Quand quelqu'un rejoint*/
