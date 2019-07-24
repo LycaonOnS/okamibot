@@ -272,7 +272,7 @@ client.on("message", async message => {
       channelid.send(textemessage);
     } else {
       textemessage = args.join(" ");
-      channelid.send(textemessage);
+      message.channel.send(textemessage);
     }
   }
 });
